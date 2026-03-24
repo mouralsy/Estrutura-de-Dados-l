@@ -1,0 +1,98 @@
+#include <stdio.h>
+
+void ImprimeVetor(int *v, int n){
+    printf("\nVetor [%d]: ", n);
+    for(int i=0; i<n; i++){
+        printf("| %d ", v[i]);
+    }
+    printf("| ");
+}
+
+// ---------- MERGESORT ----------
+
+
+void merge (int *v, int inicio, int meio, int fim){
+    int i, j, k,*temp,tamanho p1, p2;
+    int fim1 = fim2 = 0;
+    tamanho = fim-inicio+1;
+    p1 = inicio;
+    p2 = meio + 1;
+    temp = (int*) malloc(tamanho * (sizeof(int)));
+    if (temp != NULL){
+        for(i=0; i<tamanho; i ++){
+            if(!fim1 && !fim2){ // se nenhum chegou ao fim
+                if(v[p1]<v[p2]){
+                    temp[i] = v[p1];
+                    p1++;
+                }else{
+                    temp[i] = v[p2];
+                    p2++;
+                }
+            }else{//se um dos dois vetores chegou ao fim
+                if(!fim1){
+                    temp[i] = v[p1++];
+                }else{
+                    temp[i] = v[p2++];
+                }
+            }
+        }
+        for(j=0, k=inicio; j<tamanho; j++, k++){
+            v[k] = temp[j];
+        }
+    }
+    free(temp);
+}
+
+void mergeSort (int *v, int inicio, int fim){
+    int meio;
+    if(inicio<fim){
+        meio = floor((inico+fim)/2);
+        mergeSort(v, inicio, meio);
+        mergeSort(v, meio + 1, fim);
+        merge(v, inicio, meio, fim);
+}
+
+
+//  ---------- QUICKSORT ----------
+
+void quickSort(int *v, inicio, fim){
+    int pivo;
+    if (fim > inicio){
+        pivo = particiona(v, inicio, fim); // separa os dados em 2 partições
+        quickSort(v, inicio, meio + 1); // chama a função apara as 2 metades
+        quickSort(v, pivo + 1, fim); // chama a função apara as 2 metades
+    }
+    
+}
+
+int particiona(int *v, int inicio, int fim){
+    int esq, dir, pivo, aux;
+    esq = inicio;
+    dir = fim;
+    pivo = v[inicio];
+    while(esq<dir){
+        while(esq <= final && v[esq] <= pivo) // avança posição da esquerda
+            esq++;
+        while(dir >= 0 && v[dir] > pivo) // recua posição da esquerda
+            dir++;
+        if(esq<dir){
+            aux = v[esq];
+            v[esq] = v[dir];
+            v[dir] = aux;
+        }    
+    }
+    v[inicio] = v[dir];
+    v[dir] = pivo;
+    return dir;
+}
+
+int main()
+{
+    int vet[10] = {6, 75, 1, 14, 24, 18, 3, 7, 50, 10};
+    ImprimeVetor(vet, 10);
+    mergeSort(vet, 0, 9);
+    ImprimeVetor(vet, 10); 
+    }
+
+    return 0;
+}
