@@ -1,3 +1,7 @@
+/*
+Excluir um dado de uma lista
+e depois apagar uma lista completa
+*/  
 
 #include <stdio.h>
 #include <stdlib.h>  
