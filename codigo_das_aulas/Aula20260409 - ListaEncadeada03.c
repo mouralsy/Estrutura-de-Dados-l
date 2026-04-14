@@ -2,7 +2,7 @@
 
 fazer inserção de celula no começo da lista...
 
-Excluir um dado de uma lista
+Excluir um item de uma lista
 e depois apagar uma lista completa
 
 *******************************************************************************/
