@@ -2,6 +2,9 @@
 
 fazer inserção de celula no começo da lista...
 
+Excluir um dado de uma lista
+e depois apagar uma lista completa
+
 *******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
