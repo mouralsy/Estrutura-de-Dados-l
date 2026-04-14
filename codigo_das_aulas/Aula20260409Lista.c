@@ -1,3 +1,8 @@
+/*
+Excluir um dado de uma lista
+e depois apagar uma lista completa
+*/  
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,7 +34,7 @@ int insere_lista_fim(Lista *lista, int x){
     }else{
         cel *temp;
         temp  = *lista;
-        while(temp->seg !=NULL){//anda até o fim da lista
+        while(temp->seg !=NULL){//anda atÃ© o fim da lista
             temp = temp->seg;
         }
         temp->seg = aux;
