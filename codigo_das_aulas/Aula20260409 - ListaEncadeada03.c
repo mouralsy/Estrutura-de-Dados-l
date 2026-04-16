@@ -181,15 +181,13 @@ void remove_item(Lista *lista, int x){
 
 void exlcuir_lista(Lista *lista){
     if(lista == NULL){
-        return;
-    }    
-    cel *aux;
-
-    while(*lista != NULL){
-        aux = *lista;
-        *lista = (*lista) -> seg;
-        free(aux);
-    }    
+            cel *aux;
+    
+        while(*lista != NULL){
+            aux = *lista;
+            *lista = (*lista) -> seg; // *lista é um conteúdo. Aqui o que é lista, pega o valor seguinte do dele
+            free(aux);
+        }    
 
     free(lista);
 }
