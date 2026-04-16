@@ -78,9 +78,11 @@ int insere_lista_inicio (Lista *lista, int x){
 void imprimir_lista(Lista* lista){
     if(lista == NULL){
         printf("\nLista não existe\n");
+        return 0;
     }
     if(*lista == NULL){
         printf("\nLista está vazia\n");
+        return 0;
     }
     cel *temp;
         temp = *lista;
@@ -99,7 +101,7 @@ int busca_while(Lista* lista, int x){
     if (*lista == NULL){ return 0; } // se a lista está vazia
     cel* aux = *lista;
     
-    while(aux -> seg != NULL){ // anda até o final da lista
+    while(aux != NULL){ // anda até o final da lista
         if(aux -> conteudo == x){
         return 1;
         }
@@ -131,10 +133,12 @@ int busca_for(Lista* lista, int x){
 
 int contar_itens(Lista *lista){
     if(lista == NULL){
-            printf("\nLista não existe\n");
-        }
+        printf("\nLista não existe\n");
+        return 0;
+    }
     if(*lista == NULL){
         printf("\nLista está vazia\n");
+        return 0;
     }
     cel *aux;
     int contador = 0;
@@ -142,17 +146,52 @@ int contar_itens(Lista *lista){
     for( aux = *lista; aux != NULL; aux = aux -> seg){
         contador++;
     }
-    printf("\nTotal de itens: %d \n", contador);
+    
+    return contador;
 }    
 
 
-//-------------- EXCLUIR DA LISTA ------------------
+//-------------- EXCLUIR ITEM DA LISTA ------------------
 
 void remove_item(Lista *lista, int x){
-    cel *aux = (cel*) malloc(sizeof(cel));
-    aux -> conteudo = x;
-    aux -> seg = NULL;
-    
+    if(lista == NULL || *lista == NULL){
+        return 0;
+    }
+    cel *ant = NULL;
+    cel *atual  = *lista;
+
+    while(atual != NULL && atual -> conteudo != x){
+        ant = atual;
+        atual = atual -> seg;
+    }
+     if(atual == NULL){
+         return 0; // não encontrou
+     }
+     if(ant == NULL){
+         *lista = atual -> seg; //remove o primeiro
+     } else{
+         ant -> seg = atual -> seg;
+     }
+
+    free(atual);
+    return 1;
+}
+
+//-------------- EXCLUIR ITEM DA LISTA ------------------
+
+void exlcuir_lista(Lista *lista){
+    if(lista == NULL){
+        return;
+    }    
+    cel *aux;
+
+    while(*lista != NULL){
+        aux = *lista;
+        *lista = (*lista) -> seg;
+        free(aux);
+    }    
+
+    free(lista);
 }
 
 //-------------- MAIN ------------------
@@ -170,7 +209,7 @@ int main()
     
     //insere_lista_inicio(lst, 0);
     //busca_for(lst, 3);
-    contar_itens(lst);
+    printf("\nTotal de itens: %d \n", contar_itens(lst));
     imprimir_lista(lst);
     return 0;
 }
