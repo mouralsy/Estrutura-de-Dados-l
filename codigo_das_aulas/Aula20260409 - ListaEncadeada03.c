@@ -177,9 +177,9 @@ void remove_item(Lista *lista, int x){
     return 1;
 }
 
-//-------------- EXCLUIR ITEM DA LISTA ------------------
+//-------------- EXCLUIR LISTA ------------------
 
-void exlcuir_lista(Lista *lista){
+void excluir_lista(Lista *lista){
     if(lista == NULL){
             cel *aux;
     
