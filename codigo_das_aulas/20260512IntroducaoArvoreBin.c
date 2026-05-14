@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <windows.h>
+
 struct NO{
   int info;
   struct NO *esq;
   struct NO *dir;
 };
-
+typedef struct NO NO;
 typedef struct NO* ArvBin;
 
 ArvBin * cria_ArvBin(){
@@ -51,35 +53,106 @@ void imprime_ArvBin(ArvBin *raiz){
   }
 }
 
-//--------------------------
+
+//---------------------------------------
 
 int insere_ArvBin(ArvBin* raiz, int valor){
-  return 1;
+    if(raiz == NULL){
+        return 0;
+    }
+
+    NO *novo = (NO*) malloc(sizeof(NO));
+    if(novo == NULL){
+        return 0;
+    }
+    novo->info = valor;
+    novo->esq =NULL;
+    novo->dir =NULL;
+
+    if(*raiz == NULL){//primeiro elemento
+        *raiz = novo;
+    }
+    else{//folha
+        NO *atual = *raiz;
+        NO *ant = NULL;
+        while(atual!=NULL){
+            ant = atual;
+            if(valor==atual->info){//repetido
+                free(novo);
+                return 0;
+            }
+            if(valor>atual->info){
+                atual = atual->dir;
+            }else{
+                atual = atual->esq;
+            }
+        }
+        if(valor>ant->info){
+            ant->dir = novo;
+        }else{
+            ant->esq = novo;
+        }
+    }
+    return 1;
 }
+
+//---------------------------------------
+
+int consulta_ArvBin(ArvBin *raiz, int valor){
+    if(raiz == NULL){ return 0;}
+    if(*raiz == NULL){ return 0;}
+    else{
+        NO *atual = *raiz;
+        while(atual!=NULL){
+            if(valor==atual->info){return 1;}
+            if(valor>atual->info){atual = atual->dir;
+            }else{atual = atual->esq;}
+        }
+    }
+    return 0;
+}
+
+
+//---------------------------------------
 
 int altura_ArvBin(ArvBin* raiz){
   return 1;
 }
 
+//---------------------------------------
+
+
 int totalNosArvBin(ArvBin* raiz){
-  return 1;
+  if(raiz == NULL || (*raiz) == NULL){ return 0; }
+
+  int no_esq = totalNosArvBin(&((*raiz) -> esq));
+  int no_dir = totalNosArvBin(&((*raiz) -> dir));
+  
+  return no_esq + no_dir + 1;
 }
+
+//---------------------------------------
+
 
 void preOrdem_arvBin(ArvBin *raiz){
 
 }
 
+//---------------------------------------
+
+
 void emOrdem_arvBin(ArvBin *raiz){
 
 }
+
+//---------------------------------------
+
 
 void posOrdem_arvBin(ArvBin *raiz){
   
 }
 
-int consulta_ArvBin(ArvBin *raiz, int valor){
-  return 1;
-}
+//---------------------------------------
 
 
 int main(void) {
