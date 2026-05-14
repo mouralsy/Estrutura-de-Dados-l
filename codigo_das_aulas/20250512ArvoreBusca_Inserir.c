@@ -25,36 +25,37 @@ ArvBin* criar_arvore(){
 
 int insere_ArvBin (ArvBin *raiz, int valor){
     if(raiz == NULL){return 0;}
-    if((*raiz) == NULL){
-        *raiz = aux;
-    }
 
-    NO* aux = (NO*) malloc(sizeof(NO));
-    if(aux == NULL){return 0;}
+    NO* novo = (NO*) malloc(sizeof(NO));
+    if(novo == NULL){return 0;}
 
-    aux -> info = valor;
+    novo -> info = valor;
+    novo -> esq = NULL;
+    novo -> dir = NULL;
 
-    if(valor < raiz){
-        if(aux -> esq == NULL){}
-            NO *temp;
-            temp = *raiz;
-            while(temp -> esq != NULL){
-                temp = temp -> esq;
+    if ((*raiz) == NULL){ //prmeiro elemento
+        *raiz = novo;
+    }else{
+        NO *atual = *raiz;
+        NO *ant = NULL;
+        while(atual != NULL){
+        ant = atual;
+            if(valor == atual -> info){
+                free(novo);
+                return 0;
             }
-            temp -> info = aux;
+            if(valor > atual -> info){
+                atual = atual -> dir;
+            }else{
+                atual = atual -> esq;
+            }    
         }
-    }
-    else{
-        if(aux -> dir == NULL){
-            NO *temp;
-            temp = *raiz;
-            while(temp -> dir != NULL){
-                temp = temp != dir;
-            }
-            temp -> info = aux;
-        }
-    }
-    return 1;
+        if(valor > ant -> info){
+            ant -> dir = novo;
+        }else{
+            ant -> esq = novo;
+        }    
+  return 1;
 }
 
 //--------------------------------------------------------//
